@@ -1,7 +1,51 @@
 ﻿@page "/"
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
-<h1>Hello, world!</h1>
+<h1>Car list</h1>
 
-Welcome to your new app.
+@if (cars == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var car in cars)
+    {
+        <ul>
+            <li>Plate: @car.Plate</li>
+            <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
+            <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
+            <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
+            <li><a href="/car/edit/@car.Plate">Edit</a></li>
+        </ul>
+    }
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<a href="/car/add">Create car</a>
+
+@code{
+    private Car[] cars;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await localStorage.GetItemAsync<Car[]>("cars");
+
+        if (cars == null || cars.Length == 0)
+        {
+            cars = await Http.GetFromJsonAsync<Car[]>("mocks/cars.mocks.json");
+            await localStorage.SetItemAsync("cars", cars);
+        }
+    }
+
+    public class Car
+    {
+        public string Plate { get; set; }
+
+        public DateTime TaxDueDate { get; set; }
+
+        public DateTime InspectionDate { get; set; }
+
+        public DateTime InsuranceDate { get; set; }
+    }
+}
