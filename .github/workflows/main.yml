@@ -24,11 +24,14 @@ jobs:
           html_path: release/wwwroot/index.html
           base_href: /BlazorCarCare/
 
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+
       - name: GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v1.5.1
         with:
           target_branch: gh-pages
-          build_dir: release
+          build_dir: release/wwwroot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
