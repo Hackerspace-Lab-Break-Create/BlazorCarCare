@@ -67,7 +67,8 @@ else
         await js.InvokeVoidAsync("console.log", addCarModel);
 
         await localStorage.SetItemAsync("cars", cars);
-        navigationManager.NavigateTo("/");
+        
+        navigationManager.NavigateTo("");
     }
 
     public class AddCarModel
