@@ -13,12 +13,12 @@ else
     @foreach (var car in cars)
     {
         var carEditUrl = $"car/edit/{car.Plate}";
-        <ul>
-            <li>Plate: @car.Plate</li>
+        <ul class="mb-4">
+            <li class="text-carcare">Plate: @car.Plate</li>
             <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
             <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
             <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
-            <li><NavLink href="@carEditUrl">Edit</NavLink></li>
+            <li><NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink></li>
         </ul>
     }
 }
