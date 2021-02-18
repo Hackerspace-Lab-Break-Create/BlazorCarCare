@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
+using Fluxor;
+using BlazorCarCare.Services;
 
 namespace BlazorCarCare
 {
@@ -14,9 +16,21 @@ namespace BlazorCarCare
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            var services = builder.Services;
 
-            builder.Services.AddBlazoredLocalStorage();
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            services.AddBlazoredLocalStorage();
+
+            services.AddScoped<CarService>();
+
+            #region Fluxor
+            services.AddFluxor(options =>
+            {
+                options.ScanAssemblies(System.Reflection.Assembly.GetExecutingAssembly());
+                options.UseReduxDevTools(); //TODO: hide on prod
+            });
+            #endregion Fluxor
 
             await builder.Build().RunAsync();
         }

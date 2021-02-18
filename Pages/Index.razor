@@ -1,52 +1,45 @@
 ﻿@page "/"
+@implements IDisposable 
 @inject HttpClient Http
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 
+@inject IState<CarState> CarState
+
+@inject CarService CarService;
+
 <h1>Car list</h1>
 
-@if (cars == null)
+@foreach (var car in CarState.Value.Cars)
 {
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @foreach (var car in cars)
-    {
-        var carEditUrl = $"car/edit/{car.Plate}";
-        <ul class="mb-4">
-            <li class="text-carcare">Plate: @car.Plate</li>
-            <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
-            <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
-            <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
-            <li><NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink></li>
-        </ul>
-    }
+    var carEditUrl = $"car/edit/{car.Plate}";
+    <ul class="mb-4">
+        <li class="text-carcare">Plate: @car.Plate</li>
+        <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
+        <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
+        <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
+        <li><NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink></li>
+    </ul>
 }
 
 <NavLink href="car/add">Create car</NavLink>
 
 @code{
-    private Car[] cars;
-
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
-        cars = await localStorage.GetItemAsync<Car[]>("cars");
+        CarState.StateChanged += StoreChanged;
 
-        if (cars == null || cars.Length == 0)
-        {
-            cars = await Http.GetFromJsonAsync<Car[]>("mocks/cars.mocks.json");
-            await localStorage.SetItemAsync("cars", cars);
-        }
+        CarService.LoadCarsInitialState();
+
+        return Task.CompletedTask;
     }
 
-    public class Car
+    private void StoreChanged(object sender, CarState state)
     {
-        public string Plate { get; set; }
+        StateHasChanged();
+    }
 
-        public DateTime TaxDueDate { get; set; }
-
-        public DateTime InspectionDate { get; set; }
-
-        public DateTime InsuranceDate { get; set; }
+    public void Dispose()
+    {
+        CarState.StateChanged -= StoreChanged;
     }
 }
