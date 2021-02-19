@@ -27,5 +27,10 @@ namespace BlazorCarCare.Services
         {
             Dispatcher.Dispatch(new LoadCarsLocalStorageAction());
         }
+
+        public void DeleteCar(string plate)
+        {
+            Dispatcher.Dispatch(new DeleteCarAction(plate));
+        }
     }
 }

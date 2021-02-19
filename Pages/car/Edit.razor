@@ -1,0 +1,31 @@
+@page "/car/edit/{plate}"
+@inject IState<CarState> CarState;
+@inject CarService CarService;
+
+<h3>Edit @Plate</h3>
+
+<CarForm ButtonText="Edit" Model="@Car" HandleOnSubmit="@EditCar" />
+
+@code {
+    [Parameter]
+    public string Plate { get; set; }
+
+    public CarModel Car { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var existingCar = CarState.Value.Cars.First(c => c.Plate == Plate);
+        Car = new CarModel
+        {
+            Plate = existingCar.Plate,
+            InspectionDate = existingCar.InspectionDate,
+            InsuranceDate = existingCar.InsuranceDate,
+            TaxDueDate = existingCar.TaxDueDate
+        };
+    }
+
+    private void EditCar(object _, CarModel model)
+    {
+        CarService.EditCar(Plate, model);
+    }
+}

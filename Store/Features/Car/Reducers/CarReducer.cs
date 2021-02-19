@@ -18,7 +18,7 @@ namespace BlazorCarCare.Store.Features.Car.Reducers
         #region CreateCar
 
         [ReducerMethod]
-        public static CarState CreateCarSuccess(CarState state, CreateCarSuccessAction action)
+        public static CarState CreateCar(CarState state, CreateCarAction action)
         {
             var cars = state.Cars;
             cars.Add(action.Car);
@@ -29,7 +29,7 @@ namespace BlazorCarCare.Store.Features.Car.Reducers
 
         #region EditCar
         [ReducerMethod]
-        public static CarState EditCarSuccess(CarState state, EditCarSuccessAction action)
+        public static CarState EditCar(CarState state, EditCarAction action)
         {
             var cars = state.Cars;
 
@@ -49,5 +49,14 @@ namespace BlazorCarCare.Store.Features.Car.Reducers
         }
         #endregion EditCar
 
+        #region DeleteCar
+        [ReducerMethod]
+        public static CarState DeleteCar(CarState state, DeleteCarAction action)
+        {
+            var cars = state.Cars.Where(c => c.Plate != action.Plate);
+
+            return new CarState(cars.ToList());
+        }
+        #endregion DeleteCar
     }
 }

@@ -1,0 +1,18 @@
+﻿@page "/car/add"
+@inject Microsoft.JSInterop.IJSRuntime js
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navigationManager
+@inject CarService service
+
+
+<h3>Add a new car</h3>
+
+<CarForm ButtonText="Add" Model="@(new CarModel())" HandleOnSubmit="@AddCar" />
+@code {
+    private CarModel model = new CarModel();
+
+    private void AddCar(object _, CarModel car)
+    {
+        service.CreateCar(car);
+    }
+}

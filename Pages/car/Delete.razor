@@ -1,0 +1,17 @@
+@page "/car/delete/{plate}"
+@inject CarService CarService
+
+<p>Are you sure, you want to delete @Plate</p>
+<button @onclick="@DeleteCar">Delete</button>
+
+
+@code {
+    [Parameter]
+    public string Plate { get; set; }
+
+    public void DeleteCar()
+    {
+        CarService.DeleteCar(Plate);
+    }
+
+}

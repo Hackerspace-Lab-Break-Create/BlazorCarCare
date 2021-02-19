@@ -1,0 +1,21 @@
+<form @onsubmit="@((evt) => HandleOnSubmit(evt, Model))">
+    <input type="text" name="plate" @bind-value="Model.Plate" />
+    <input type="date" name="taxDueDate" @bind-value="Model.TaxDueDate" />
+    <input type="date" name="inspectionDate" @bind-value="Model.InspectionDate" />
+    <input type="date" name="insuranceDate" @bind-value="Model.InsuranceDate" />
+    <input type="submit" value="@ButtonText" />
+</form>
+
+
+@code {
+    [Parameter]
+    public string ButtonText { get; set; }
+
+    [Parameter]
+    public CarModel Model { get; set; }
+
+    [Parameter]
+    public EventHandler<CarModel> HandleOnSubmit { get; set; }
+
+
+}
