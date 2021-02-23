@@ -6,30 +6,35 @@
 @inject IState<CarState> CarState
 
 @inject CarService CarService;
+@inject AlertService AlertService;
 
 <h1>Car list</h1>
+<NavLink href="car/add">Create car</NavLink>
 
 @foreach (var car in cars)
 {
     var carEditUrl = $"car/edit/{car.Plate}";
     var carDeleteUrl = $"car/delete/{car.Plate}";
     <ul class="mb-4">
-    <li class="text-carcare">Plate: @car.Plate</li>
-    <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
-    <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
-    <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
-    <li>
-        <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink>
-        <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carDeleteUrl">Delete</NavLink>
-    </li>
-</ul>
+        <li class="text-carcare">Plate: @car.Plate</li>
+        <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
+        <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
+        <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
+        <li>
+            <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink>
+            <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carDeleteUrl">Delete</NavLink>
+        </li>
+    </ul>
 }
 
-<NavLink href="car/add">Create car</NavLink>
-
+@foreach (var alert in alerts)
+{
+    <Alert AlertModel="@alert" />
+}
 
 @code{
     private IList<CarModel> cars = new List<CarModel>();
+    private IList<AlertModel> alerts = new List<AlertModel>();
     protected override Task OnInitializedAsync()
     {
         cars = CarState.Value.Cars;
@@ -43,6 +48,7 @@
     private void StoreChanged(object sender, CarState state)
     {
         cars = state.Cars;
+        alerts = AlertService.GetActiveAlert();
         StateHasChanged();
     }
 

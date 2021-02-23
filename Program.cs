@@ -23,6 +23,7 @@ namespace BlazorCarCare
             services.AddBlazoredLocalStorage();
 
             services.AddScoped<CarService>();
+            services.AddScoped<AlertService>();
 
             #region Fluxor
             services.AddFluxor(options =>

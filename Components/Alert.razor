@@ -1,0 +1,10 @@
+﻿<div>
+    <h1>@AlertModel.Expired</h1>
+    <h5>@AlertModel.CarPlate</h5>
+    <p>@AlertModel.Date</p>
+</div>
+
+@code {
+    [Parameter]
+    public AlertModel AlertModel { get; set; }
+}
