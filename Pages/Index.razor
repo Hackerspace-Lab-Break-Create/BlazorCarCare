@@ -8,6 +8,8 @@
 @inject CarService CarService;
 @inject AlertService AlertService;
 
+@inject INotificationService NotificationsService;
+
 <h1>Car list</h1>
 <NavLink href="car/add">Create car</NavLink>
 
@@ -35,20 +37,37 @@
 @code{
     private IList<CarModel> cars = new List<CarModel>();
     private IList<AlertModel> alerts = new List<AlertModel>();
-    protected override Task OnInitializedAsync()
+
+    private bool canNotify = false;
+
+    protected override async Task OnInitializedAsync()
     {
+        canNotify = await NotificationsService.RequestPermissionAsync() == PermissionType.Granted;
+
         cars = CarState.Value.Cars;
         CarState.StateChanged += StoreChanged;
 
         CarService.LoadCarsInitialState();
-
-        return Task.CompletedTask;
     }
 
     private void StoreChanged(object sender, CarState state)
     {
+
         cars = state.Cars;
         alerts = AlertService.GetActiveAlert();
+
+        if (canNotify)
+        {
+            foreach (var alert in alerts)
+            {
+                NotificationsService.CreateAsync($"{alert.CarPlate} || {alert.Expired}", new NotificationOptions()
+                {
+                    Body = $"{alert.Expired} has expired on day: {alert.Date.ToString("dd/MM/yyyy")}",
+                    Tag = new Random().Next().ToString()
+                }); ;
+            }
+        }
+
         StateHasChanged();
     }
 

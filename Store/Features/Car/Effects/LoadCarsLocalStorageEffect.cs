@@ -38,23 +38,23 @@ namespace BlazorCarCare.Store.Features.Car.Effects
             new CarModel()
             {
                 Plate = "11-LR-09",
-                TaxDueDate = DateTime.Parse("2022-02-22"),
-                InspectionDate = DateTime.Parse("2022-02-22"),
-                InsuranceDate = DateTime.Parse("2022-02-22")
+                TaxDueDate = DateTime.Parse("2021-02-22"),
+                InspectionDate = DateTime.Parse("2021-02-23"),
+                InsuranceDate = DateTime.Parse("2021-02-22")
             },
             new CarModel()
             {
                 Plate = "22-RP-07",
-                TaxDueDate = DateTime.Parse("2022-02-22"),
-                InspectionDate = DateTime.Parse("2022-02-22"),
-                InsuranceDate = DateTime.Parse("2022-02-22")
+                TaxDueDate = DateTime.Parse("2021-02-23"),
+                InspectionDate = DateTime.Parse("2021-02-22"),
+                InsuranceDate = DateTime.Parse("2021-02-22")
             },
             new CarModel()
             {
                 Plate = "33-NM-08",
-                TaxDueDate = DateTime.Parse("2022-02-22"),
-                InspectionDate = DateTime.Parse("2022-02-22"),
-                InsuranceDate = DateTime.Parse("2022-02-22")
+                TaxDueDate = DateTime.Parse("2021-02-22"),
+                InspectionDate = DateTime.Parse("2021-02-22"),
+                InsuranceDate = DateTime.Parse("2021-02-23")
             },
         };
     }

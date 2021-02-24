@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
 using Fluxor;
 using BlazorCarCare.Services;
+using Append.Blazor.Notifications;
 
 namespace BlazorCarCare
 {
@@ -21,6 +22,7 @@ namespace BlazorCarCare
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             services.AddBlazoredLocalStorage();
+            services.AddNotifications();
 
             services.AddScoped<CarService>();
             services.AddScoped<AlertService>();
