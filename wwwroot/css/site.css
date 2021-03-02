@@ -135,7 +135,7 @@ Forms
 2. Remove the margin in Firefox and Safari.
 */
 
-
+button,
 input {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
@@ -148,11 +148,16 @@ Remove the inheritance of text transform in Edge and Firefox.
 1. Remove the inheritance of text transform in Firefox.
 */
 
+button { /* 1 */
+  text-transform: none;
+}
+
 /**
 Correct the inability to style clickable types in iOS and Safari.
 */
 
-
+button,
+[type='button'],
 [type='submit'] {
   -webkit-appearance: button;
 }
@@ -218,15 +223,26 @@ Add the correct display in Chrome and Safari.
 
 h1,
 h3,
+h5,
 p,
 pre {
   margin: 0;
+}
+
+button {
+  background-color: transparent;
+  background-image: none;
 }
 
 /**
  * Work around a Firefox/IE bug where the transparent `button` background
  * results in a loss of the default `button` focus styles.
  */
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
 
 
 ul {
@@ -325,8 +341,13 @@ input::placeholder {
   color: #9ca3af;
 }
 
+button {
+  cursor: pointer;
+}
+
 h1,
-h3 {
+h3,
+h5 {
   font-size: inherit;
   font-weight: inherit;
 }
@@ -349,7 +370,7 @@ a {
  * normalize.css.
  */
 
-
+button,
 input {
   padding: 0;
   line-height: inherit;
@@ -375,6 +396,12 @@ pre {
  * https://github.com/mozdevs/cssremedy/issues/14
  */
 
+
+object {
+  display: block;
+  vertical-align: middle;
+}
+
 /**
  * Constrain images and videos to the parent width and preserve
  * their instrinsic aspect ratio.
@@ -395,6 +422,11 @@ pre {
   display: inline-block;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .m-4 {
   margin: 1rem;
 }
@@ -405,6 +437,11 @@ pre {
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 * {
