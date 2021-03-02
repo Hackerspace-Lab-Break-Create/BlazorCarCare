@@ -1,7 +1,7 @@
 {
   "name": "BlazorCarCare",
   "short_name": "BlazorCarCare",
-  "start_url": "./BlazorCarCare/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#03173d",
