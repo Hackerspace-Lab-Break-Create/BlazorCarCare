@@ -18,15 +18,15 @@
     var carEditUrl = $"car/edit/{car.Plate}";
     var carDeleteUrl = $"car/delete/{car.Plate}";
     <ul class="mb-4">
-    <li class="text-carcare">Plate: @car.Plate</li>
-    <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
-    <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
-    <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
-    <li>
-        <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink>
-        <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carDeleteUrl">Delete</NavLink>
-    </li>
-</ul>
+        <li class="text-carcare">Plate: @car.Plate</li>
+        <li>TaxDueDate: @car.TaxDueDate.ToShortDateString()</li>
+        <li>InspectionDate: @car.InspectionDate.ToShortDateString()</li>
+        <li>InsuranceDate: @car.InsuranceDate.ToShortDateString()</li>
+        <li>
+            <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carEditUrl">Edit</NavLink>
+            <NavLink class="inline-block bg-blue-200 p-2 m-4 rounded-md" href="@carDeleteUrl">Delete</NavLink>
+        </li>
+    </ul>
 }
 
 @foreach (var alert in alerts)
@@ -42,10 +42,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (await NotificationsService.IsSupportedByBrowserAsync())
-        {
-            canNotify = await NotificationsService.RequestPermissionAsync() == PermissionType.Granted;
-        }
+        canNotify = await NotificationsService.RequestPermissionAsync() == PermissionType.Granted;
 
         cars = CarState.Value.Cars;
         CarState.StateChanged += StoreChanged;
