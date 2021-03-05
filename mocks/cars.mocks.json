@@ -1,0 +1,20 @@
+﻿[
+    {
+        "plate": "11-LR-06",
+        "taxDueDate": "2022-02-22",
+        "inspectionDate": "2022-02-22",
+        "insuranceDate": "2022-02-22"
+    },    
+    {
+        "plate": "22-RP-07",
+        "taxDueDate": "2022-02-22",
+        "inspectionDate": "2022-02-22",
+        "insuranceDate": "2022-02-22"
+    },    
+    {
+        "plate": "33-NM-08",
+        "taxDueDate": "2022-02-22",
+        "inspectionDate": "2022-02-22",
+        "insuranceDate": "2022-02-22"
+    }
+]
